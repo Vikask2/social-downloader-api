@@ -1,84 +1,687 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+    <!-- SEO -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Downloader</title>
+
+    <title>
+        Social Media Video Downloader | Instagram, YouTube & TikTok Downloader
+    </title>
+
+    <meta
+        name="description"
+        content="Download Instagram Reels, YouTube videos, TikTok videos, Facebook videos and X videos instantly using our free social media video downloader."
+    >
+
+    <meta
+        name="keywords"
+        content="instagram reel downloader, youtube downloader, tiktok downloader, social media downloader, video downloader online"
+    >
+
+    <meta name="robots" content="index, follow">
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:title" content="Social Media Video Downloader">
+    <meta property="og:description" content="Download social media videos instantly for free.">
+    <meta property="og:type" content="website">
+
+    <!-- GOOGLE FONT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- FONT AWESOME -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    >
 
     <style>
 
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
         body{
-            font-family: Arial;
+            font-family:'Poppins', sans-serif;
+            background:#f4fff7;
+            color:#111;
+            overflow-x:hidden;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:auto;
+        }
+
+        /* HERO */
+
+        .hero{
+            padding:100px 0;
+            text-align:center;
+            background:
+            linear-gradient(
+                135deg,
+                #ebfff0,
+                #ffffff
+            );
+        }
+
+        .badge{
+            display:inline-block;
+            padding:12px 22px;
+            border-radius:50px;
+            background:#e4ffeb;
+            color:#0f9d58;
+            font-size:14px;
+            font-weight:600;
+            border:1px solid #c7f4d2;
+            margin-bottom:30px;
+        }
+
+        .hero h1{
+            font-size:68px;
+            line-height:1.15;
+            font-weight:800;
+            margin-bottom:25px;
+        }
+
+        .green{
+            color:#0f9d58;
+            position:relative;
+        }
+
+        .green::after{
+            content:'';
+            position:absolute;
+            left:0;
+            bottom:6px;
+            width:100%;
+            height:14px;
+            background:rgba(15,157,88,0.18);
+            z-index:-1;
+            border-radius:20px;
+        }
+
+        .hero p{
+            max-width:850px;
+            margin:auto;
+            color:#555;
+            font-size:18px;
+            line-height:1.9;
+            font-weight:400;
+        }
+
+        /* SOCIAL ICONS */
+
+        .social-icons{
             display:flex;
             justify-content:center;
+            gap:22px;
+            margin-top:45px;
+            margin-bottom:45px;
+            flex-wrap:wrap;
+        }
+
+        .social-icons .icon{
+            width:78px;
+            height:78px;
+            border-radius:22px;
+            display:flex;
             align-items:center;
-            height:100vh;
+            justify-content:center;
+            font-size:34px;
+            box-shadow:
+            0 10px 30px rgba(0,0,0,0.08);
+
+            transition:0.35s ease;
+            cursor:pointer;
+            position:relative;
+            overflow:hidden;
+        }
+
+        .social-icons .icon::before{
+            content:'';
+            position:absolute;
+            width:120%;
+            height:120%;
+            background:rgba(255,255,255,0.18);
+            transform:rotate(25deg);
+            top:-120%;
+            left:-120%;
+            transition:0.5s;
+        }
+
+        .social-icons .icon:hover::before{
+            top:120%;
+            left:120%;
+        }
+
+        .social-icons .icon:hover{
+            transform:
+            translateY(-8px)
+            scale(1.06);
+
+            box-shadow:
+            0 18px 40px rgba(0,0,0,0.14);
+        }
+
+        .instagram{
+            background:
+            linear-gradient(
+                135deg,
+                #feda75,
+                #fa7e1e,
+                #d62976,
+                #962fbf,
+                #4f5bd5
+            );
+
+            color:white;
+        }
+
+        .youtube{
+            background:#ff0000;
+            color:white;
+        }
+
+        .tiktok{
+            background:#000;
+            color:white;
+        }
+
+        .facebook{
+            background:#1877f2;
+            color:white;
+        }
+
+        .twitter{
             background:#111;
             color:white;
         }
 
-        .box{
-            width:400px;
-            text-align:center;
+        /* DOWNLOAD BOX */
+
+        .download-box{
+            background:white;
+            padding:35px;
+            border-radius:28px;
+            border:1px solid #e4e4e4;
+            box-shadow:
+            0 10px 40px rgba(0,0,0,0.08);
+
+            max-width:950px;
+            margin:auto;
+        }
+
+        .input-group{
+            display:flex;
+            gap:15px;
+            flex-wrap:wrap;
         }
 
         input{
-            width:100%;
-            padding:15px;
-            margin-top:10px;
+            flex:1;
+            padding:20px;
             border:none;
-            border-radius:8px;
+            border-radius:16px;
+            background:#f7fff9;
+            border:2px solid #d9f5e0;
+            font-size:16px;
+            outline:none;
+            transition:0.3s;
+        }
+
+        input:focus{
+            border-color:#0f9d58;
+            background:white;
         }
 
         button{
-            margin-top:15px;
-            padding:15px 25px;
+            padding:20px 35px;
             border:none;
-            background:#ff3c3c;
+            border-radius:16px;
+            background:#0f9d58;
             color:white;
-            border-radius:8px;
-            cursor:pointer;
             font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        button:hover{
+            background:#087a42;
+            transform:translateY(-2px);
+        }
+
+        /* FEATURES */
+
+        .features{
+            padding:90px 0;
+        }
+
+        .section-title{
+            text-align:center;
+            margin-bottom:55px;
+        }
+
+        .section-title h2{
+            font-size:44px;
+            margin-bottom:15px;
+        }
+
+        .section-title p{
+            color:#666;
+            font-size:17px;
+        }
+
+        .feature-grid{
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit, minmax(250px, 1fr));
+
+            gap:25px;
+        }
+
+        .card{
+            background:white;
+            padding:35px;
+            border-radius:22px;
+            border:1px solid #e8e8e8;
+            box-shadow:
+            0 6px 25px rgba(0,0,0,0.05);
+
+            transition:0.35s;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+        }
+
+        .card i{
+            font-size:42px;
+            color:#0f9d58;
+            margin-bottom:22px;
+        }
+
+        .card h3{
+            margin-bottom:14px;
+            font-size:24px;
+        }
+
+        .card p{
+            color:#666;
+            line-height:1.9;
+            font-size:15px;
+        }
+
+        /* HOW IT WORKS */
+
+        .steps{
+            padding:90px 0;
+            background:#f8fff9;
+        }
+
+        .step-grid{
+            display:grid;
+            grid-template-columns:
+            repeat(auto-fit, minmax(250px, 1fr));
+
+            gap:25px;
+        }
+
+        .step{
+            background:white;
+            padding:35px;
+            border-radius:22px;
+            border:1px solid #e8e8e8;
+            box-shadow:
+            0 6px 25px rgba(0,0,0,0.05);
+        }
+
+        .step-number{
+            width:58px;
+            height:58px;
+            border-radius:50%;
+            background:#0f9d58;
+            color:white;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            font-weight:700;
+            margin-bottom:22px;
+            font-size:20px;
+        }
+
+        .step h3{
+            margin-bottom:14px;
+            font-size:24px;
+        }
+
+        .step p{
+            color:#666;
+            line-height:1.9;
+        }
+
+        /* FOOTER */
+
+        footer{
+            padding:45px 0;
+            text-align:center;
+            border-top:1px solid #e6e6e6;
+            background:white;
+            color:#666;
+        }
+
+        footer p{
+            font-size:15px;
+        }
+
+        /* MOBILE */
+
+        @media(max-width:768px){
+
+            .hero{
+                padding:70px 0;
+            }
+
+            .hero h1{
+                font-size:42px;
+            }
+
+            .hero p{
+                font-size:16px;
+            }
+
+            .social-icons .icon{
+                width:65px;
+                height:65px;
+                font-size:28px;
+            }
+
+            .input-group{
+                flex-direction:column;
+            }
+
+            button{
+                width:100%;
+            }
+
+            .section-title h2{
+                font-size:34px;
+            }
+
         }
 
     </style>
+
 </head>
 <body>
 
-    <div class="box">
+    <!-- HERO -->
 
-        <h1>Social Media Downloader</h1>
+    <section class="hero">
 
-        <input
-            type="text"
-            id="videoUrl"
-            placeholder="Paste Video URL"
-        >
+        <div class="container">
 
-        <button onclick="downloadVideo()">
-            Download
-        </button>
+            <div class="badge">
+                ⚡ Fast • Secure • Unlimited Downloads
+            </div>
 
-    </div>
+            <h1>
+                Download <span class="green">Social Media Videos</span> In Seconds
+            </h1>
+
+            <p>
+                Download Instagram Reels, YouTube videos, TikTok clips, Facebook videos and X content instantly using our fast online downloader tool — optimized for creators, marketers and everyday users.
+            </p>
+
+            <!-- SOCIAL ICONS -->
+
+            <div class="social-icons">
+
+                <div class="icon instagram">
+                    <i class="fab fa-instagram"></i>
+                </div>
+
+                <div class="icon youtube">
+                    <i class="fab fa-youtube"></i>
+                </div>
+
+                <div class="icon tiktok">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+
+                <div class="icon facebook">
+                    <i class="fab fa-facebook-f"></i>
+                </div>
+
+                <div class="icon twitter">
+                    <i class="fab fa-x-twitter"></i>
+                </div>
+
+            </div>
+
+            <!-- DOWNLOAD BOX -->
+
+            <div class="download-box">
+
+                <div class="input-group">
+
+                    <input
+                        type="text"
+                        id="videoUrl"
+                        placeholder="Paste Instagram, YouTube or TikTok video URL..."
+                    >
+
+                    <button onclick="downloadVideo()">
+                        Download Video
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Why Choose Our Downloader?
+                </h2>
+
+                <p>
+                    Designed for creators, marketers and social media users.
+                </p>
+
+            </div>
+
+            <div class="feature-grid">
+
+                <div class="card">
+
+                    <i class="fas fa-bolt"></i>
+
+                    <h3>
+                        Lightning Fast
+                    </h3>
+
+                    <p>
+                        Download videos instantly without unnecessary redirects or complicated steps.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-mobile-screen-button"></i>
+
+                    <h3>
+                        Mobile Friendly
+                    </h3>
+
+                    <p>
+                        Fully responsive experience optimized for mobile, desktop and tablets.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-cloud-arrow-down"></i>
+
+                    <h3>
+                        Multi Platform
+                    </h3>
+
+                    <p>
+                        Supports Instagram Reels, YouTube videos, TikTok clips and other platforms.
+                    </p>
+
+                </div>
+
+                <div class="card">
+
+                    <i class="fas fa-shield-halved"></i>
+
+                    <h3>
+                        Safe & Easy
+                    </h3>
+
+                    <p>
+                        No software installation required. Just paste the URL and download instantly.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- HOW IT WORKS -->
+
+    <section class="steps">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    How It Works
+                </h2>
+
+                <p>
+                    Download videos in just 3 easy steps.
+                </p>
+
+            </div>
+
+            <div class="step-grid">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        1
+                    </div>
+
+                    <h3>
+                        Copy Video URL
+                    </h3>
+
+                    <p>
+                        Copy the Instagram Reel, YouTube or TikTok video link you want to download.
+                    </p>
+
+                </div>
+
+                <div class="step">
+
+                    <div class="step-number">
+                        2
+                    </div>
+
+                    <h3>
+                        Paste URL
+                    </h3>
+
+                    <p>
+                        Paste the copied link into the downloader input box above.
+                    </p>
+
+                </div>
+
+                <div class="step">
+
+                    <div class="step-number">
+                        3
+                    </div>
+
+                    <h3>
+                        Download Video
+                    </h3>
+
+                    <p>
+                        Click the download button and save the video directly to your device instantly.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="container">
+
+            <p>
+                © 2026 Social Media Video Downloader. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
 
     <script>
 
-function downloadVideo(){
+        function downloadVideo(){
 
-    const url = document.getElementById("videoUrl").value;
+            const url = document.getElementById("videoUrl").value;
 
-    if(!url){
-        alert("Paste URL First");
-        return;
-    }
+            if(!url){
+                alert("Please paste a video URL");
+                return;
+            }
 
-    const apiUrl =
-    `https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}`;
+            const apiUrl =
+            `https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}`;
 
-    window.location.href = apiUrl;
-}
+            window.location.href = apiUrl;
+        }
 
-</script>
+    </script>
 
 </body>
 </html>
