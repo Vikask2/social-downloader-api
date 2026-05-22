@@ -63,22 +63,22 @@
 
     <script>
 
-        function downloadVideo(){
+function downloadVideo(){
 
-            const url = document.getElementById("videoUrl").value;
+    const url = document.getElementById("videoUrl").value;
 
-            if(!url){
-                alert("Paste URL First");
-                return;
-            }
+    if(!url){
+        alert("Paste URL First");
+        return;
+    }
 
-            const apiUrl =
-            `https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}`;
+    const apiUrl =
+    `https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}`;
 
-            window.open(apiUrl, "_blank");
-        }
+    window.location.href = apiUrl;
+}
 
-    </script>
+</script>
 
 </body>
 </html>
