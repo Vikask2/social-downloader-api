@@ -27,6 +27,7 @@ def download_video(url: str):
     "outtmpl": output_path,
     "quiet": True,
     "merge_output_format": "mp4",
+	"cookiefile": "cookies.txt",
 
     "extractor_args": {
         "youtube": {
