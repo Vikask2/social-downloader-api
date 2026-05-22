@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Downloader</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            background:#111;
+            color:white;
+        }
+
+        .box{
+            width:400px;
+            text-align:center;
+        }
+
+        input{
+            width:100%;
+            padding:15px;
+            margin-top:10px;
+            border:none;
+            border-radius:8px;
+        }
+
+        button{
+            margin-top:15px;
+            padding:15px 25px;
+            border:none;
+            background:#ff3c3c;
+            color:white;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="box">
+
+        <h1>Social Media Downloader</h1>
+
+        <input
+            type="text"
+            id="videoUrl"
+            placeholder="Paste Video URL"
+        >
+
+        <button onclick="downloadVideo()">
+            Download
+        </button>
+
+    </div>
+
+    <script>
+
+        function downloadVideo(){
+
+            const url = document.getElementById("videoUrl").value;
+
+            if(!url){
+                alert("Paste URL First");
+                return;
+            }
+
+            const apiUrl =
+            `https://clapper-freebie-celery.ngrok-free.dev/download?url=${encodeURIComponent(url)}`;
+
+            window.open(apiUrl, "_blank");
+        }
+
+    </script>
+
+</body>
+</html>
