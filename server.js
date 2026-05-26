@@ -76,7 +76,6 @@ app.get('/formats', async (req, res) => {
 
                         if (
                             format.height &&
-                            format.ext === 'mp4' &&
                             !qualities.includes(String(format.height))
                         ) {
                             qualities.push(String(format.height));
@@ -135,11 +134,11 @@ app.get('/download', async (req, res) => {
             });
         }
 
-        const outputPath = path.join(__dirname, `video-${Date.now()}.mp4`);
+        const outputTemplate = path.join(__dirname, `video-${Date.now()}.%(ext)s`);
 
-        const format = `bestvideo[height<=${quality}]+bestaudio/best[height<=${quality}]`;
+        const format = `bestvideo[height<=${quality}][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4][height<=${quality}]/best[height<=${quality}]/best`;
 
-        const command = `yt-dlp --cookies "${cookiesPath}" -f "${format}" -o "${outputPath}" "${videoUrl}"`;
+        const command = `yt-dlp --cookies "${cookiesPath}" --merge-output-format mp4 -f "${format}" -o "${outputTemplate}" "${videoUrl}"`;
 
         exec(command, {
             maxBuffer: 1024 * 1024 * 20,
@@ -157,14 +156,25 @@ app.get('/download', async (req, res) => {
 
             }
 
-            if (!fs.existsSync(outputPath)) {
+            const files = fs.readdirSync(__dirname);
+
+            const downloadedFile = files.find(file =>
+                file.startsWith('video-') &&
+                (file.endsWith('.mp4') || file.endsWith('.webm') || file.endsWith('.mkv'))
+            );
+
+            if (!downloadedFile) {
+
                 return res.status(500).json({
                     error: 'File not generated'
                 });
+
             }
 
-            res.download(outputPath, `video-${quality}p.mp4`, () => {
-                fs.unlink(outputPath, () => {});
+            const finalPath = path.join(__dirname, downloadedFile);
+
+            res.download(finalPath, downloadedFile, () => {
+                fs.unlink(finalPath, () => {});
             });
 
         });
