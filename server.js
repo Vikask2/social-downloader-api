@@ -46,10 +46,10 @@ app.get('/formats', async (req, res) => {
             });
         }
 
-        const command = `yt-dlp --cookies "${cookiesPath}" -F "${videoUrl}"`;
+        const command = `yt-dlp --cookies "${cookiesPath}" -J "${videoUrl}"`;
 
         exec(command, {
-            maxBuffer: 1024 * 1024 * 10,
+            maxBuffer: 1024 * 1024 * 20,
             timeout: 120000
         }, (error, stdout, stderr) => {
 
@@ -64,28 +64,48 @@ app.get('/formats', async (req, res) => {
 
             }
 
-            const qualities = [];
+            try {
 
-            stdout.split('\n').forEach(line => {
+                const data = JSON.parse(stdout);
 
-                const match = line.match(/(\d{3,4})p/);
+                const qualities = [];
 
-                if (match && !qualities.includes(match[1])) {
-                    qualities.push(match[1]);
+                if (data.formats && Array.isArray(data.formats)) {
+
+                    data.formats.forEach(format => {
+
+                        if (
+                            format.height &&
+                            format.ext === 'mp4' &&
+                            !qualities.includes(String(format.height))
+                        ) {
+                            qualities.push(String(format.height));
+                        }
+
+                    });
+
                 }
 
-            });
+                qualities.sort((a, b) => parseInt(a) - parseInt(b));
 
-            qualities.sort((a, b) => parseInt(a) - parseInt(b));
+                if (qualities.length === 0) {
 
-            if (qualities.length === 0) {
+                    return res.status(500).json({
+                        error: 'No formats detected'
+                    });
+
+                }
+
+                res.json({ qualities });
+
+            } catch (jsonError) {
+
                 return res.status(500).json({
-                    error: 'No formats detected',
-                    details: stdout
+                    error: 'Format parsing failed',
+                    details: jsonError.message
                 });
-            }
 
-            res.json({ qualities });
+            }
 
         });
 
@@ -117,7 +137,7 @@ app.get('/download', async (req, res) => {
 
         const outputPath = path.join(__dirname, `video-${Date.now()}.mp4`);
 
-        const format = `best[height<=${quality}]/best`;
+        const format = `bestvideo[height<=${quality}]+bestaudio/best[height<=${quality}]`;
 
         const command = `yt-dlp --cookies "${cookiesPath}" -f "${format}" -o "${outputPath}" "${videoUrl}"`;
 
