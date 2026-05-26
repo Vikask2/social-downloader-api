@@ -8,6 +8,8 @@ const app = express();
 
 app.use(cors());
 
+const cookiesPath = path.join(__dirname, 'cookies.txt');
+
 app.get('/', (req, res) => {
     res.send('Social Downloader API Running');
 });
@@ -22,13 +24,25 @@ app.get('/formats', async (req, res) => {
             return res.status(400).json({ error: 'URL is required' });
         }
 
-        const command = `yt-dlp --cookies cookies.txt -F "${videoUrl}"`;
+        if (!fs.existsSync(cookiesPath)) {
+            return res.status(500).json({
+                error: 'cookies.txt file missing'
+            });
+        }
+
+        const command = `yt-dlp --cookies "${cookiesPath}" -F "${videoUrl}"`;
 
         exec(command, (error, stdout, stderr) => {
 
             if (error) {
+
                 console.error(stderr);
-                return res.status(500).json({ error: 'Unable to fetch formats' });
+
+                return res.status(500).json({
+                    error: 'Unable to fetch formats',
+                    details: stderr
+                });
+
             }
 
             const lines = stdout.split('\n');
@@ -51,7 +65,7 @@ app.get('/formats', async (req, res) => {
 
             });
 
-            qualities.sort((a,b)=>parseInt(a)-parseInt(b));
+            qualities.sort((a, b) => parseInt(a) - parseInt(b));
 
             res.json({ qualities });
 
@@ -60,7 +74,11 @@ app.get('/formats', async (req, res) => {
     } catch (err) {
 
         console.error(err);
-        res.status(500).json({ error: 'Server error' });
+
+        res.status(500).json({
+            error: 'Server error',
+            details: err.message
+        });
 
     }
 
@@ -81,17 +99,27 @@ app.get('/download', async (req, res) => {
 
         const format = `best[height<=${quality}]/best`;
 
-        const command = `yt-dlp --cookies cookies.txt -f "${format}" -o "${outputPath}" "${videoUrl}"`;
+        const command = `yt-dlp --cookies "${cookiesPath}" -f "${format}" -o "${outputPath}" "${videoUrl}"`;
 
         exec(command, async (error, stdout, stderr) => {
 
             if (error) {
+
                 console.error(stderr);
-                return res.status(500).json({ error: 'Download failed' });
+
+                return res.status(500).json({
+                    error: 'Download failed',
+                    details: stderr
+                });
+
             }
 
             if (!fs.existsSync(outputPath)) {
-                return res.status(500).json({ error: 'File not generated' });
+
+                return res.status(500).json({
+                    error: 'File not generated'
+                });
+
             }
 
             res.download(outputPath, `video-${quality}p.mp4`, () => {
@@ -103,7 +131,11 @@ app.get('/download', async (req, res) => {
     } catch (err) {
 
         console.error(err);
-        res.status(500).json({ error: 'Server error' });
+
+        res.status(500).json({
+            error: 'Server error',
+            details: err.message
+        });
 
     }
 
