@@ -2,7 +2,7 @@ FROM node:20-bullseye
 
 RUN apt-get update && apt-get install -y \
     ffmpeg \
-    python3.11 \
+    python3.9 \
     python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
