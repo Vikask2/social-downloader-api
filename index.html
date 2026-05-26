@@ -10,8 +10,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:#f4fff7;color:#111}
-.container{width:90%;max-width:1200px;margin:auto}
-.hero{padding:100px 0;text-align:center;background:linear-gradient(135deg,#ebfff0,#ffffff)}
+.container{width:90%;max-width:1200px;margin:auto}.hero{padding:100px 0;text-align:center;background:linear-gradient(135deg,#ebfff0,#ffffff)}
 .badge{display:inline-block;padding:12px 22px;border-radius:50px;background:#e4ffeb;color:#0f9d58;font-size:14px;font-weight:600;margin-bottom:30px}
 .hero h1{font-size:64px;font-weight:800;margin-bottom:20px}.green{color:#0f9d58}
 .hero p{max-width:800px;margin:auto;color:#555;font-size:18px;line-height:1.8}
@@ -23,11 +22,7 @@ body{font-family:'Poppins',sans-serif;background:#f4fff7;color:#111}
 input,select{flex:1;padding:20px;border-radius:16px;border:2px solid #d9f5e0;font-size:16px;outline:none;background:#fff}
 button{padding:20px 35px;border:none;border-radius:16px;background:#0f9d58;color:#fff;font-size:16px;font-weight:600;cursor:pointer}
 .status{margin-top:15px;font-size:15px;font-weight:500;color:#0f9d58}
-.features{padding:80px 0}.section-title{text-align:center;margin-bottom:50px}.section-title h2{font-size:42px}
-.feature-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
-.card{background:#fff;padding:30px;border-radius:20px;box-shadow:0 6px 25px rgba(0,0,0,.05)}
-.card i{font-size:40px;color:#0f9d58;margin-bottom:20px}
-footer{text-align:center;padding:40px 0;border-top:1px solid #e6e6e6;background:#fff;color:#666}
+.hidden{display:none}
 @media(max-width:768px){.hero h1{font-size:40px}.input-group{flex-direction:column}button{width:100%}}
 </style>
 </head>
@@ -47,46 +42,52 @@ footer{text-align:center;padding:40px 0;border-top:1px solid #e6e6e6;background:
 <div class="download-box">
 <div class="input-group">
 <input type="text" id="videoUrl" placeholder="Paste video URL here...">
-<select id="quality">
-<option value="360">360p</option>
-<option value="480">480p</option>
-<option value="720" selected>720p</option>
-<option value="1080">1080p</option>
-</select>
+<button onclick="fetchQualities()">Fetch Qualities</button>
+</div>
+<div class="input-group hidden" id="qualitySection">
+<select id="quality"></select>
 <button id="downloadBtn" onclick="downloadVideo()">Download</button>
 </div>
 <div class="status" id="status"></div>
 </div>
 </div>
 </section>
-<section class="features">
-<div class="container">
-<div class="section-title"><h2>Downloader Features</h2></div>
-<div class="feature-grid">
-<div class="card"><i class="fas fa-bolt"></i><h3>Fast Downloads</h3><p>Quick processing and download generation.</p></div>
-<div class="card"><i class="fas fa-video"></i><h3>Quality Selection</h3><p>Choose 360p, 480p, 720p or 1080p video quality.</p></div>
-<div class="card"><i class="fas fa-mobile-screen"></i><h3>All Devices</h3><p>Works on desktop, tablet and mobile devices.</p></div>
-</div>
-</div>
-</section>
-<footer><div class="container"><p>© 2026 Social Media Video Downloader</p></div></footer>
 <script>
+async function fetchQualities(){
+const url=document.getElementById('videoUrl').value.trim();
+const status=document.getElementById('status');
+const qualitySelect=document.getElementById('quality');
+const qualitySection=document.getElementById('qualitySection');
+if(!url){alert('Please paste a video URL');return;}
+status.innerText='Fetching available qualities...';
+qualitySelect.innerHTML='';
+try{
+const response=await fetch(`https://social-downloader-api-production.up.railway.app/formats?url=${encodeURIComponent(url)}`);
+const data=await response.json();
+if(!data.qualities||data.qualities.length===0){
+status.innerText='No quality formats found.';
+return;
+}
+data.qualities.forEach(q=>{
+const option=document.createElement('option');
+option.value=q;
+option.textContent=`${q}p`;
+qualitySelect.appendChild(option);
+});
+qualitySection.classList.remove('hidden');
+status.innerText='Select video quality and download.';
+}catch(error){
+console.error(error);
+status.innerText='Unable to fetch video qualities.';
+}
+}
 function downloadVideo(){
 const url=document.getElementById('videoUrl').value.trim();
 const quality=document.getElementById('quality').value;
-const button=document.getElementById('downloadBtn');
 const status=document.getElementById('status');
-if(!url){alert('Please paste a video URL');return;}
-button.disabled=true;
-button.innerText='Processing...';
-status.innerText='Generating download link...';
+status.innerText='Preparing download...';
 const apiUrl=`https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}&quality=${quality}`;
 window.open(apiUrl,'_blank');
-setTimeout(()=>{
-button.disabled=false;
-button.innerText='Download';
-status.innerText='Your download request has been processed.';
-},3000);
 }
 </script>
 </body>
