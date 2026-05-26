@@ -5,50 +5,34 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Social Media Video Downloader | Instagram, YouTube & TikTok Downloader</title>
 <meta name="description" content="Download Instagram Reels, YouTube videos, TikTok videos, Facebook videos and X videos instantly using our free social media video downloader.">
-<meta name="keywords" content="instagram reel downloader, youtube downloader, tiktok downloader, social media downloader, video downloader online">
-<meta name="robots" content="index, follow">
-<meta property="og:title" content="Social Media Video Downloader">
-<meta property="og:description" content="Download social media videos instantly for free.">
-<meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#f4fff7;color:#111;overflow-x:hidden}
+body{font-family:'Poppins',sans-serif;background:#f4fff7;color:#111}
 .container{width:90%;max-width:1200px;margin:auto}
 .hero{padding:100px 0;text-align:center;background:linear-gradient(135deg,#ebfff0,#ffffff)}
-.badge{display:inline-block;padding:12px 22px;border-radius:50px;background:#e4ffeb;color:#0f9d58;font-size:14px;font-weight:600;border:1px solid #c7f4d2;margin-bottom:30px}
-.hero h1{font-size:68px;line-height:1.15;font-weight:800;margin-bottom:25px}
-.green{color:#0f9d58}
-.hero p{max-width:850px;margin:auto;color:#555;font-size:18px;line-height:1.9}
-.social-icons{display:flex;justify-content:center;gap:22px;margin:45px 0;flex-wrap:wrap}
-.social-icons .icon{width:78px;height:78px;border-radius:22px;display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 10px 30px rgba(0,0,0,0.08);transition:.35s ease;color:#fff}
-.social-icons .icon:hover{transform:translateY(-8px) scale(1.06)}
-.instagram{background:linear-gradient(135deg,#feda75,#fa7e1e,#d62976,#962fbf,#4f5bd5)}
-.youtube{background:#ff0000}.tiktok{background:#000}.facebook{background:#1877f2}.twitter{background:#111}
-.download-box{background:white;padding:35px;border-radius:28px;border:1px solid #e4e4e4;box-shadow:0 10px 40px rgba(0,0,0,0.08);max-width:950px;margin:auto}
+.badge{display:inline-block;padding:12px 22px;border-radius:50px;background:#e4ffeb;color:#0f9d58;font-size:14px;font-weight:600;margin-bottom:30px}
+.hero h1{font-size:64px;font-weight:800;margin-bottom:20px}
+.green{color:#0f9d58}.hero p{max-width:800px;margin:auto;color:#555;font-size:18px;line-height:1.8}
+.social-icons{display:flex;justify-content:center;gap:20px;margin:40px 0;flex-wrap:wrap}
+.icon{width:75px;height:75px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:32px;color:#fff}
+.instagram{background:linear-gradient(135deg,#feda75,#d62976,#4f5bd5)}.youtube{background:#ff0000}.tiktok{background:#000}.facebook{background:#1877f2}.twitter{background:#111}
+.download-box{background:#fff;padding:35px;border-radius:25px;max-width:950px;margin:auto;box-shadow:0 10px 40px rgba(0,0,0,.08)}
 .input-group{display:flex;gap:15px;flex-wrap:wrap}
-input{flex:1;padding:20px;border:none;border-radius:16px;background:#f7fff9;border:2px solid #d9f5e0;font-size:16px;outline:none}
-input:focus{border-color:#0f9d58;background:white}
-button{padding:20px 35px;border:none;border-radius:16px;background:#0f9d58;color:white;font-size:16px;font-weight:600;cursor:pointer;transition:.3s}
-button:hover{background:#087a42}
-button:disabled{opacity:.7;cursor:not-allowed}
-.status{margin-top:18px;font-size:15px;font-weight:500}
-.features,.steps{padding:90px 0}
-.steps{background:#f8fff9}
-.section-title{text-align:center;margin-bottom:55px}
-.section-title h2{font-size:44px;margin-bottom:15px}.section-title p{color:#666;font-size:17px}
-.feature-grid,.step-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
-.card,.step{background:white;padding:35px;border-radius:22px;border:1px solid #e8e8e8;box-shadow:0 6px 25px rgba(0,0,0,0.05)}
-.card i{font-size:42px;color:#0f9d58;margin-bottom:22px}
-.card h3,.step h3{margin-bottom:14px;font-size:24px}.card p,.step p{color:#666;line-height:1.9}
-.platforms{padding:90px 0}
-.platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:25px}
-.platform-card{background:#fff;padding:30px;border-radius:20px;border:1px solid #e8e8e8}
-.platform-card h3{margin-bottom:12px}
-footer{padding:45px 0;text-align:center;border-top:1px solid #e6e6e6;background:white;color:#666}
-@media(max-width:768px){.hero{padding:70px 0}.hero h1{font-size:42px}.hero p{font-size:16px}.input-group{flex-direction:column}button{width:100%}}
+input{flex:1;padding:20px;border-radius:16px;border:2px solid #d9f5e0;font-size:16px;outline:none}
+button{padding:20px 35px;border:none;border-radius:16px;background:#0f9d58;color:#fff;font-size:16px;font-weight:600;cursor:pointer}
+button:disabled{opacity:.7}
+.status{margin-top:15px;font-size:15px;font-weight:500;color:#0f9d58}
+.features,.platforms{padding:80px 0}.section-title{text-align:center;margin-bottom:50px}.section-title h2{font-size:42px;margin-bottom:10px}
+.feature-grid,.platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:25px}
+.card,.platform-card{background:#fff;padding:30px;border-radius:20px;box-shadow:0 6px 25px rgba(0,0,0,.05)}
+.card i{font-size:40px;color:#0f9d58;margin-bottom:20px}
+.card h3,.platform-card h3{margin-bottom:12px}
+.card p,.platform-card p{color:#666;line-height:1.8}
+footer{text-align:center;padding:40px 0;border-top:1px solid #e6e6e6;background:#fff;color:#666}
+@media(max-width:768px){.hero h1{font-size:40px}.input-group{flex-direction:column}button{width:100%}}
 </style>
 </head>
 <body>
@@ -56,7 +40,7 @@ footer{padding:45px 0;text-align:center;border-top:1px solid #e6e6e6;background:
 <div class="container">
 <div class="badge">⚡ Fast • Secure • Unlimited Downloads</div>
 <h1>Download <span class="green">Social Media Videos</span> In Seconds</h1>
-<p>Download Instagram Reels, YouTube Shorts, TikTok clips, Facebook videos and X content instantly using our fast online downloader tool.</p>
+<p>Download Instagram Reels, YouTube Shorts, TikTok clips, Facebook videos and X content instantly.</p>
 <div class="social-icons">
 <div class="icon instagram"><i class="fab fa-instagram"></i></div>
 <div class="icon youtube"><i class="fab fa-youtube"></i></div>
@@ -77,32 +61,27 @@ footer{padding:45px 0;text-align:center;border-top:1px solid #e6e6e6;background:
 <div class="container">
 <div class="section-title">
 <h2>Why Choose Our Downloader?</h2>
-<p>Optimized for creators, marketers and social media users.</p>
 </div>
 <div class="feature-grid">
-<div class="card"><i class="fas fa-bolt"></i><h3>Lightning Fast</h3><p>Instant downloads without unnecessary redirects or complicated steps.</p></div>
-<div class="card"><i class="fas fa-mobile-screen-button"></i><h3>Mobile Friendly</h3><p>Fully responsive experience optimized for mobile, desktop and tablets.</p></div>
-<div class="card"><i class="fas fa-cloud-arrow-down"></i><h3>Multi Platform</h3><p>Supports Instagram Reels, YouTube Shorts, TikTok clips and more.</p></div>
-<div class="card"><i class="fas fa-shield-halved"></i><h3>Safe & Easy</h3><p>No software installation required. Just paste the URL and download.</p></div>
+<div class="card"><i class="fas fa-bolt"></i><h3>Fast Downloads</h3><p>Quick and direct processing for supported public videos.</p></div>
+<div class="card"><i class="fas fa-mobile-screen-button"></i><h3>Mobile Friendly</h3><p>Works smoothly across phones, tablets and desktops.</p></div>
+<div class="card"><i class="fas fa-cloud-arrow-down"></i><h3>Multiple Platforms</h3><p>Supports Instagram, YouTube, TikTok and more.</p></div>
 </div>
 </div>
 </section>
 <section class="platforms">
 <div class="container">
-<div class="section-title">
-<h2>Supported Platforms</h2>
-<p>Built for modern social media content downloads.</p>
-</div>
+<div class="section-title"><h2>Supported Platforms</h2></div>
 <div class="platform-grid">
-<div class="platform-card"><h3>Instagram Reel Downloader</h3><p>Download public Instagram Reels and videos quickly using a direct video link.</p></div>
-<div class="platform-card"><h3>YouTube Shorts Downloader</h3><p>Save YouTube Shorts and videos for offline viewing and content research.</p></div>
-<div class="platform-card"><h3>TikTok Video Downloader</h3><p>Download TikTok clips directly to your device in seconds.</p></div>
+<div class="platform-card"><h3>Instagram Reel Downloader</h3><p>Download public Instagram Reels and videos.</p></div>
+<div class="platform-card"><h3>YouTube Shorts Downloader</h3><p>Save YouTube Shorts and videos instantly.</p></div>
+<div class="platform-card"><h3>TikTok Video Downloader</h3><p>Download TikTok clips directly to your device.</p></div>
 </div>
 </div>
 </section>
-<footer><div class="container"><p>© 2026 Social Media Video Downloader. All Rights Reserved.</p></div></footer>
+<footer><div class="container"><p>© 2026 Social Media Video Downloader</p></div></footer>
 <script>
-async function downloadVideo(){
+function downloadVideo(){
 const url=document.getElementById('videoUrl').value.trim();
 const button=document.getElementById('downloadBtn');
 const status=document.getElementById('status');
@@ -112,29 +91,15 @@ alert('Unsupported URL');
 return;
 }
 button.disabled=true;
-button.innerText='Processing...';
-status.innerText='Preparing your download...';
-try{
-const response=await fetch(`https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}`);
-if(!response.ok){throw new Error('Download failed');}
-const blob=await response.blob();
-const downloadUrl=window.URL.createObjectURL(blob);
-const a=document.createElement('a');
-a.href=downloadUrl;
-a.download='video.mp4';
-document.body.appendChild(a);
-a.click();
-a.remove();
-window.URL.revokeObjectURL(downloadUrl);
-status.innerText='Download started successfully.';
-}catch(error){
-console.error(error);
-status.innerText='Unable to process this link right now. Try another public video URL.';
-alert('Download failed. Please try another link.');
-}finally{
+button.innerText='Redirecting...';
+status.innerText='Generating download link...';
+const apiUrl=`https://social-downloader-api-production.up.railway.app/download?url=${encodeURIComponent(url)}`;
+window.open(apiUrl,'_blank');
+setTimeout(()=>{
 button.disabled=false;
 button.innerText='Download Video';
-}
+status.innerText='If download did not start, try another public video URL.';
+},3000);
 }
 </script>
 </body>
