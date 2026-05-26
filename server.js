@@ -20,6 +20,14 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/vikas-test-999', (req, res) => {
+    res.json({
+        working: true,
+        latest: true,
+        timestamp: Date.now()
+    });
+});
+
 app.get('/formats', async (req, res) => {
 
     try {
