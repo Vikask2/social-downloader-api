@@ -21,7 +21,7 @@ body{font-family:'Poppins',sans-serif;background:#f4fff7;color:#111}
 .input-group{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:15px}
 input,select{flex:1;padding:20px;border-radius:16px;border:2px solid #d9f5e0;font-size:16px;outline:none;background:#fff}
 button{padding:20px 35px;border:none;border-radius:16px;background:#0f9d58;color:#fff;font-size:16px;font-weight:600;cursor:pointer}
-.status{margin-top:15px;font-size:15px;font-weight:500;color:#0f9d58}
+.status{margin-top:15px;font-size:14px;font-weight:500;color:#0f9d58;line-height:1.7;word-break:break-word}
 .hidden{display:none}
 @media(max-width:768px){.hero h1{font-size:40px}.input-group{flex-direction:column}button{width:100%}}
 </style>
@@ -64,6 +64,10 @@ qualitySelect.innerHTML='';
 try{
 const response=await fetch(`https://social-downloader-api-production.up.railway.app/formats?url=${encodeURIComponent(url)}`);
 const data=await response.json();
+if(!response.ok){
+status.innerText=data.details || data.error || 'Unable to fetch formats';
+return;
+}
 if(!data.qualities||data.qualities.length===0){
 status.innerText='No quality formats found.';
 return;
@@ -75,10 +79,10 @@ option.textContent=`${q}p`;
 qualitySelect.appendChild(option);
 });
 qualitySection.classList.remove('hidden');
-status.innerText='Select video quality and download.';
+status.innerText='Select available quality and click download.';
 }catch(error){
 console.error(error);
-status.innerText='Unable to fetch video qualities.';
+status.innerText=error.message;
 }
 }
 function downloadVideo(){
