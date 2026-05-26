@@ -46,7 +46,7 @@ app.get('/formats', async (req, res) => {
             });
         }
 
-        const command = `yt-dlp --cookies "${cookiesPath}" -J "${videoUrl}"`;
+        const command = `yt-dlp --cookies "${cookiesPath}" --extractor-args "youtube:player_client=android" --sleep-requests 2 --sleep-interval 2 -J "${videoUrl}"`;
 
         exec(command, {
             maxBuffer: 1024 * 1024 * 20,
@@ -138,7 +138,7 @@ app.get('/download', async (req, res) => {
 
         const format = `bestvideo[height<=${quality}][ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4][height<=${quality}]/best[height<=${quality}]/best`;
 
-        const command = `yt-dlp --cookies "${cookiesPath}" --merge-output-format mp4 -f "${format}" -o "${outputTemplate}" "${videoUrl}"`;
+        const command = `yt-dlp --cookies "${cookiesPath}" --extractor-args "youtube:player_client=android" --sleep-requests 2 --sleep-interval 2 --merge-output-format mp4 -f "${format}" -o "${outputTemplate}" "${videoUrl}"`;
 
         exec(command, {
             maxBuffer: 1024 * 1024 * 20,
